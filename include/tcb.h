@@ -3,6 +3,7 @@
 
 
 #include <stdlib.h>
+#include <stdio.h>
 
 typedef enum {
 
@@ -28,5 +29,6 @@ typedef struct
 
 tcb_t* tcbInit( int id, int arrivalTime, int priority, int totalBurst);
 void tcbDestroy(tcb_t* process);
+void tcbPrint(tcb_t* process);
 
 #endif

@@ -106,3 +106,20 @@ void destroyQueue(queue_t* q){
     free(q);
 
 }
+
+void printQueue(queue_t* q) {
+    if (q == NULL || isEmpty(q)) {
+        printf("[ cola vacia ]");
+        return;
+    }
+
+    node_t* aux = q->head;
+    printf("[ ");
+    while (aux != NULL) {
+        if (aux->process != NULL) {
+            tcbPrint(aux->process);
+        }
+        aux = aux->next;
+    }
+    printf("]");
+}

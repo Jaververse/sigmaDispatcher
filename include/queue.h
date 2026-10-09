@@ -6,7 +6,7 @@
 
 #define QUANTUM_0 2
 #define QUANTUM_1 4
-#define QUANTUM_2 -1 //No es especificado 
+#define QUANTUM_2 -1 //Se maneja con un FIFO
 
 
 
@@ -38,6 +38,7 @@ tcb_t* front(queue_t* q);
 queue_t* initQueue( int quantum);
 int isEmpty(queue_t* q);
 void destroyQueue(queue_t* q);
+void printQueue(queue_t* q);
 
 
 #endif 

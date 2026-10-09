@@ -26,3 +26,12 @@ void tcbDestroy(tcb_t* process){
         free(process);
     }
 }
+
+void tcbPrint(tcb_t* process) {
+    if (process == NULL) {
+        printf("NULL");
+        return;
+    }
+
+    printf("centinela %d (r:%d)", process->id, process->remainingBurst);
+}
