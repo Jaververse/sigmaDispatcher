@@ -14,12 +14,8 @@ typedef struct {
     int simulation_finished;
 } SyncThreads;
 
-//Funciones de inicializacion, destruccion y control de sincronizacion por tic 
+//Funciones de inicializacion, destruccion
 void init_sync(SyncThreads *sync_threads);
 void destroy_sync(SyncThreads *sync_threads);
-void wait_for_master(SyncThreads *sync_threads, int tick);
-void signal_worker_done(SyncThreads *sync_threads, int tick);
-void wait_for_worker(SyncThreads *sync_threads, int tick);
-void signal_master_done(SyncThreads *sync_threads, int tick);
 
 #endif

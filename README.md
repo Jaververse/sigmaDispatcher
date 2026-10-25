@@ -27,7 +27,7 @@ tcb.c / tcb.h: Definición e inicialización del Bloque de Control de Tarea (TCB
 queue.c / queue.h: Implementación de la estructura de datos de Cola Enlazada Dinámica y sus operaciones (enqueue, enqueueFront, dequeue, printQueue).   
 scheduler.c / scheduler.h: Motor principal del planificador. Maneja las tres colas de prioridad, evalúa vencimientos de quantum, expropiaciones por prioridad y despacha centinelas a la CPU.   
 threads.c / threads.h: Administrador de hilos y funciones independientes para el Hilo Maestro (admisión de llegadas) y el Hilo Trabajador (procesamiento de ráfagas).   
-sync.c / sync.h: Motor de sincronización basado en un cerrojo (pthread_mutex_t) y variables de condición (pthread_cond_t) para mantener la barrera de fase síncrona tic a tic.   
+sync.c / sync.h: Se gestiona la estructura syncthreads para la sincronizacion.
 logger.c / logger.h: Gestor de salidas del sistema. Encargado de imprimir la configuración de parámetros y dirigir reportes de errores hacia la salida estándar de errores (stderr).  
 metrics.c / metrics.h: Módulo de procesamiento estadístico. Calcula e imprime el rendimiento global del sistema al terminar la ejecución.
 

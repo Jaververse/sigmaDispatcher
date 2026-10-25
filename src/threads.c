@@ -70,7 +70,6 @@ void *worker_threadF(void *arg) {
         manager->scheduler->timer = t;
         pthread_mutex_unlock(&manager->sync_threads.mutex);
 
-        //COMPROBAR FINALIZACIONES PENDIENTES
         if (manager->scheduler->lastEnd != NULL) { // comprobamos si en el tic anterior finalizo alguna tarea, ya que si esto pasa, imprime el mensaje de completed.
         printf("[T-%04d] COMPLETED: Sentinel ID: %d -> Turnaround Time: %d ticks\n", manager->scheduler->lastEnd->returnTime, manager->scheduler->lastEnd->id, manager->scheduler->lastEnd->returnTime - manager->scheduler->lastEnd->arrivalTime);
         manager->completed_tasks++; // aumentamos el contador de completadas.
