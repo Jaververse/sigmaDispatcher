@@ -227,6 +227,18 @@ void printVerbose(scheduler_t* scheduler) {
 
     printNormal(scheduler);
 
+    if (scheduler->lastChavez != NULL) {
+    printf("[Tick: %04d] PREEMPTED: ", scheduler->timer); 
+    tcbPrint(scheduler->lastChavez);
+    printf("\n");
+    }
+
+     if (scheduler->lastDispatched != NULL) {
+    printf("[Tick: %04d] DISPATCHED: ", scheduler->timer);
+    tcbPrint(scheduler->lastDispatched);
+    printf("\n");
+    }
+
     
     printf("--- [ Estado del Sistema en Tg = %04d ] ---\n", scheduler->timer);
     
@@ -243,7 +255,6 @@ void printVerbose(scheduler_t* scheduler) {
     printf("  Cola 2 (FCFS)   : "); printQueue(scheduler->queue2); printf("\n");
     printf("-------------------------------------------\n");
 }
-
 
 
 
