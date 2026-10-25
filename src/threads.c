@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// Rutina del Hilo Maestro, Controla el reloj discreto Tg y la admisión de nuevas tareas que lleguen
-void *master_thread_routine(void *arg) {
+// Hilo Maestro, Controla el reloj discreto Tg y la admisión de nuevas tareas que lleguen
+void *master_threadF(void *arg) {
     threadAdmin *manager = (threadAdmin *)arg;
     
     while (1) { //Bucle para avanzar tic a tic mientras se completa la simulación
@@ -50,7 +50,7 @@ void *master_thread_routine(void *arg) {
 }
 
 // Hilo Trabajador es el nucleo fisico CPU_0 ejecutando las tareas
-void *worker_thread_routine(void *arg) {
+void *worker_threadF(void *arg) {
     threadAdmin *manager = (threadAdmin *)arg;
     
     while (1) {
@@ -122,13 +122,13 @@ int start_thread_manager(threadAdmin *manager, scheduler_t *scheduler, tcb_t **t
 
     init_sync(&manager->sync_threads);
 
-    if (pthread_create(&manager->master_thread, NULL, master_thread_routine, manager) != 0) { //Creamos el hilo maestro
+    if (pthread_create(&manager->master_thread, NULL, master_threadF, manager) != 0) { //Creamos el hilo maestro
     perror("Error al crear el Hilo Maestro");
     destroy_sync(&manager->sync_threads);
     return -1;
     }
 
-    if (pthread_create(&manager->worker_thread, NULL, worker_thread_routine, manager) != 0) { //Creamos el hilo trabajador
+    if (pthread_create(&manager->worker_thread, NULL, worker_threadF, manager) != 0) { //Creamos el hilo trabajador
     perror("Error al crear el Hilo Trabajador");
     pthread_cancel(manager->master_thread);
     destroy_sync(&manager->sync_threads);
