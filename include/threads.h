@@ -6,24 +6,24 @@
 #include "scheduler.h"
 #include "tcb.h"
 
-// Contexto compartido para la ejecución de los hilos del simulador
+// Contexto compartido global para la ejecución de los hilos del simulador, aqui uno todos el sistema
 typedef struct {
-    pthread_t master_thread;
-    pthread_t worker_thread;
-    SystemSync sync_sys;
-    int verbose_mode;
+pthread_t master_thread; //Hilo maestro
+pthread_t worker_thread; //Hilo trabajador
+SyncThreads sync_threads; //tengo el mutex y variables para la coordinacion de los hilos
+int verbose_mode; // para el -v
     
-    // Punteros necesarios para conectar con el Integrante 1 y el Integrante 3
-    scheduler_t *scheduler;
-    tcb_t **tasks;
-    int num_tasks;
-    int completed_tasks;
-} ThreadManager;
+// Punteros y contadores para trabajar los hilos y las tareas.
+scheduler_t *scheduler;
+tcb_t **tasks;
+int num_tasks;
+int completed_tasks;
+} threadAdmin; 
 
-// Funciones para iniciar, gestionar y finalizar los hilos POSIX
-int start_thread_manager(ThreadManager *manager, scheduler_t *scheduler, tcb_t **tasks, int num_tasks, int verbose);
+// Funciones para iniciar, gestionar y finalizar los hilos 
+int start_thread_manager(threadAdmin *manager, scheduler_t *scheduler, tcb_t **tasks, int num_tasks, int verbose);
 void *master_thread_routine(void *arg);
 void *worker_thread_routine(void *arg);
-void join_thread_manager(ThreadManager *manager);
+void join_thread_manager(threadAdmin *manager);
 
-#endif // THREADS_H
+#endif

@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     char *input_file = NULL;
     bool verbose = false;
 
-    // 1. Procesamiento de argumentos de consola (CLI)
+    //Procesamiento de argumentos de consola (CLI)
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-v") == 0 || strcmp(argv[i], "--verbose") == 0) {
             verbose = true;
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    // 2. Inicialización del sistema
+    //Inicialización del sistema
     scheduler_t *scheduler = schedulerInit();
     if (!scheduler) {
         logger_log_error("Fallo al inicializar el planificador.");
@@ -49,23 +49,21 @@ int main(int argc, char *argv[]) {
 
 
 
-    // ZONA MULTIHILO POSIX 
-
-    ThreadManager thread_manager;
+    threadAdmin thread_manager;
     
     // Iniciamos el Hilo Maestro y el Hilo Trabajador (CPU_0) pasándoles el scheduler y las tareas
     if (start_thread_manager(&thread_manager, scheduler, tasks, num_tasks, verbose) != 0) {
-        logger_log_error("Fallo al iniciar los hilos de concurrencia.");
+        logger_log_error("Fallo al iniciar los hilos de concurrencia."); //Por si falla, liberamos los recursos.
         schedulerDestroy(scheduler);
         exit(EXIT_FAILURE);
     }
 
-    // Esperamos (join) a que ambos hilos terminen la simulación de forma sincronizada tic a tic
+    // Esperamos a que ambos hilos terminen la simulación de forma sincronizada tic a tic
     join_thread_manager(&thread_manager);
 
 
 
-    // 3. Impresión de Métricas y Limpieza
+    //Impresión de Métricas y Limpieza
     metrics_print_global(scheduler->timer, num_tasks, tasks);
 
     for (int i = 0; i < num_tasks; i++) {
